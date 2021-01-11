@@ -18,6 +18,7 @@ def sort_timer(func):
         func(*args, **kwargs)
         end_time = time.perf_counter()
         time_elapsed = end_time - start_time
+        print(time_elapsed)
         return time_elapsed
     return wrapper
 
@@ -30,6 +31,8 @@ def test_sort(sort_func):
     list_quantity = 5000
     list_plot = []
     time_plot = []
+
+    print(list_quantity)
 
     while list_quantity <= 35000:
 
