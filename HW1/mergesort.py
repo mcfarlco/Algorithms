@@ -36,22 +36,6 @@ def merge(left, right):
     return temp
 
 
-
-    # # If only one value in one of the arrays, return that array
-    # if len(left) == 0:
-    #     return right
-    #
-    # if len(right) == 0:
-    #     return left
-    #
-    # # Otherwise recursively return the array starting with the lowest value of the first element of the arrays
-    # if left[0] < right[0]:
-    #     return [left[0]] + merge(left[1:], right)
-    #
-    # else:
-    #     return [right[0]] + merge(left, right[1:])
-
-
 def merge_sort(array):
     """ Function to sort a provided array using the merge method."""
 
