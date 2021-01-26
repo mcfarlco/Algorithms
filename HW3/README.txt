@@ -1,0 +1,1 @@
+$ python3 shopping.py
