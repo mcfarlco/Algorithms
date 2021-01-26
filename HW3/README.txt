@@ -1,1 +1,1 @@
-$ python3 shopping.py
+$ python3 shopping.py -inputfile shopping.txt
