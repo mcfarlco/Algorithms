@@ -1,0 +1,1 @@
+$python3 wrestlers.py

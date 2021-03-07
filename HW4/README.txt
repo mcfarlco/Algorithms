@@ -1,0 +1,1 @@
+$ python3 activity.py -inputfile act.txt
