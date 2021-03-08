@@ -4,7 +4,6 @@
 
 import numpy
 import random
-import os
 
 
 class ImmovableTile(Exception):
@@ -131,11 +130,12 @@ class Puzzle:
             print("Invalid Tile provided")
             raise InvalidTile
 
-        # Check for empty space adjacent to tile
+        # Check spaces to the left and right of the tile for an empty space
         row_i = tile[0]
         col_i = tile[1] - 1
         for m in range(2):
             try:
+                # If a space is empty, move the tile
                 if self.board[row_i][col_i] is None:
                     self.board[row_i][col_i] = self.board[tile[0]][tile[1]]
                     self.moves.append(self.board[tile[0]][tile[1]])
@@ -145,13 +145,16 @@ class Puzzle:
                 else:
                     col_i += 2
 
+            # Handle exception if index is not on board.
             except IndexError:
                 continue
 
+        # Check spaces above and below the tile for empty space.
         row_i = tile[0] - 1
         col_i = tile[1]
         for m in range(2):
             try:
+                # If a space is empty, move the tile
                 if self.board[row_i][col_i] is None:
                     self.board[row_i][col_i] = self.board[tile[0]][tile[1]]
                     self.board[tile[0]][tile[1]] = None
@@ -172,20 +175,26 @@ class Puzzle:
         :param moves: array of tiles sorted by move order.
         """
 
+        # Move counter
         cur_mov = 0
 
+        # For each move provided, perform the move.
         for move in moves:
             try:
                 cur_mov += 1
                 tile = [-1, -1]
+
+                # Find location of tile
                 for row_i in range(self.dim):
                     for col_i in range(self.dim):
                         if self.board[row_i][col_i] == move:
                             tile = [row_i, col_i]
                             break
 
+                # Move tile
                 self.move_tile(tile)
 
+            # If tile cannot move or is outside the range, move and solution are invalid.
             except InvalidTile or ImmovableTile:
                 print("Move #" + str(cur_mov) + " for tile #" + str(move) + "is invalid, no solution found.")
                 return False
@@ -195,8 +204,12 @@ class Puzzle:
         for row_i in range(self.dim):
             for col_i in range(self.dim):
                 solution += 1
+
+                # Check if solution space should be null/empty
                 if solution == self.n + 1:
                     continue
+
+                # Otherwise verify that the tile at the grid space matches its respective solution
                 if self.board[row_i][col_i] != solution:
                     return False
 
@@ -204,15 +217,22 @@ class Puzzle:
 
 
 if __name__ == '__main__':
+
+    # Ask if user has a board
     pregen = input("Have your own board or verifying a solution? (Y/N): ")
     pregen = pregen[0]
 
+    # If user has a board
     if pregen.lower() == "y":
+        # Ask if user wants to check a solution
         verify = input("Verifying a solution? (Y/N): ")
         verify = verify[0]
+
+        # Ask for input file
         b_import = input("Enter filename: ")
         print()
 
+        # Format file into readable arrays
         with open(b_import, "r") as inp:
             lines = inp.readlines()
             lines = [s.strip('\n') for s in lines]
@@ -234,8 +254,11 @@ if __name__ == '__main__':
 
                 n_board.append(row)
                 lines = lines[1:]
+
+                # Import user board
                 game = Puzzle(n_size, n_board)
 
+        # Format moves into readable array
         if verify.lower() == "y":
             n_num_moves = int(lines[0])
             n_moves = []
@@ -245,12 +268,14 @@ if __name__ == '__main__':
                 n_moves.append(int(lines[0]))
                 lines = lines[1:]
 
+            # Verify moves
             if game.verify(n_moves):
                 print("Solution is valid")
 
             else:
                 print("Moves complete, solution not found.")
 
+    # Otherwise create empty board.
     else:
         game = Puzzle()
 
@@ -264,9 +289,11 @@ if __name__ == '__main__':
         if response[0].lower() == "move":
             move = int(response[1])
 
+            # Check if tile is outside of range
             if move > game.n:
                 move = [-1, -1]
 
+            # Otherwise find tile coordinates and move it.
             else:
                 for row_i in range(game.dim):
                     for col_i in range(game.dim):
@@ -277,6 +304,7 @@ if __name__ == '__main__':
             game.move_tile(move)
             continue
 
+        # Create new board
         if response[0].lower() == "new":
             game.gen_board()
             continue
