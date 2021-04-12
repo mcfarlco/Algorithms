@@ -1,6 +1,5 @@
 # Author: Corey McFarland
 # Date: 03/08/2021
-# Desc: Portfolio assignment.
 
 import numpy
 import random

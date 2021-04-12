@@ -1,6 +1,5 @@
 # Author: Corey McFarland
 # Date: 01/11/2021
-# Desc: HW1 problem 5a
 
 import time
 import random

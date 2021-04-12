@@ -1,6 +1,5 @@
 # Author: Corey McFarland
 # Date: 02/15/2021
-# Desc: HW5
 
 def good_bad(wrestlers, rivalries):
     """Function to determine if a 'Babyfaces' and 'Heels' split is possible from a provided list of wrestlers and

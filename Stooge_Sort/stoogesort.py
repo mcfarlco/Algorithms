@@ -1,6 +1,5 @@
 # Author: Corey McFarland
 # Date: 01/18/2021
-# Desc: HW2
 
 import math
 import time

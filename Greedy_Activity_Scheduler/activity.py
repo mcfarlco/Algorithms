@@ -1,6 +1,5 @@
 # Author: Corey McFarland
 # Date: 02/01/2021
-# Desc: HW4
 
 def last_start(activities):
     """Function to return an array of the maximum number of activities able to schedule using a greedy algorithm

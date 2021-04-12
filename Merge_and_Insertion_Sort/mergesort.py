@@ -1,22 +1,56 @@
 # Author: Corey McFarland
 # Date: 01/11/2021
-# Desc: HW1 problem 4
 
-def insert_sort(array):
-    """ Function to sort a provided array using the insertion method."""
+def merge(left, right):
+    """Function to two merge arrays in ascending order"""
+
+    # If only one value in one of the arrays, return that array
+    if len(left) == 0:
+        return right
+
+    if len(right) == 0:
+        return left
+
+    temp = []
+    li = 0
+    ri = 0
+
+    while len(temp) < len(left) + len(right):
+        if li == len(left) and ri < len(right):
+            temp.append(right[ri])
+            ri += 1
+
+        elif ri == len(right) and li < len(left):
+            temp.append(left[li])
+            li += 1
+
+        elif left[li] < right[ri]:
+            temp.append(left[li])
+            li += 1
+
+        else:
+            temp.append(right[ri])
+            ri += 1
+
+    return temp
+
+
+def merge_sort(array):
+    """ Function to sort a provided array using the merge method."""
 
     # For arrays of length 1
     if len(array) <= 1:
         return array
 
-    # Otherwise sort
-    for index in range(1, len(array)):
-        value = array[index]
-        p = index - 1
-        while p >= 0 and array[p] > value:
-            array[p + 1] = array[p]
-            p -= 1
-        array[p + 1] = value
+    # Otherwise recursively sort the half and merge
+    left = merge_sort(array[:len(array)//2])
+    right = merge_sort(array[len(array)//2:])
+    t = merge(left, right)
+
+    # Update array
+    for e in range(len(array)):
+        array[e] = t[e]
+    return array
 
 
 if __name__ == '__main__':
@@ -37,9 +71,9 @@ if __name__ == '__main__':
             tests.append(array)
 
     for test in tests:
-        insert_sort(test)
+        merge_sort(test)
 
-    with open("insert.out", "w") as out:
+    with open("merge.out", "w") as out:
         for array in tests:
             # Add number of elements sorted to output
             out.write(str(len(array)) + " ")

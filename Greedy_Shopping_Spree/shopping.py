@@ -1,6 +1,5 @@
 # Author: Corey McFarland
 # Date: 01/25/2021
-# Desc: HW3
 
 def shopping(family, item_prices, item_weights):
     """Function to determine shopping spree items for provided family and items"""
